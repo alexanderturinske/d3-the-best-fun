@@ -1,0 +1,10 @@
+div.tooltip {
+    border: 2px gray solid;
+    box-shadow: 5px 5px 5px gray;
+    position: absolute;
+    text-align: center;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 1em;
+    background: lightgrey;
+}
