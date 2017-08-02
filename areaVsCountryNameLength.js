@@ -64,7 +64,7 @@ circles
 
 // Set tooltip behavior
 circles
-    .on('mouseover', function(d) {
+    .on('mouseover', function (d) {
         tooltipDiv.html(`<p>${d.name.common}</p><p>${areaFormat(d.area)} sq mi</p>`);
         var width = parseInt(tooltipDiv.style('width'));
         var height = parseInt(tooltipDiv.style('height'));
@@ -73,7 +73,7 @@ circles
             .style('top', `${d3.event.pageY - height - 20}px`)
             .style('opacity', 1);
     })
-    .on('mouseout', function() {
+    .on('mouseout', function () {
         tooltipDiv.style('opacity', 0).style('left', '-1000px');
     });
 
@@ -84,6 +84,7 @@ let t = d3.transition().duration(100);
 function updateData() {
     circles.transition(t).attr('cx', d => callingCodeScale(getCallingCode(d)));
 }
+
 
 // Other ideas
 // Area vs Latitude
