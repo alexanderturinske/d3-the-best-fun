@@ -94,6 +94,7 @@ function updateData() {
 
 // Other graph ideas
 // Number of languages by Country Name Length
+// Latitude vs Longitude
 
 // Information
 // Number of languages
