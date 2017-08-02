@@ -9,3 +9,11 @@ function getCallingCode(country) {
         ? parseInt(country.callingCode[0]) > 1000 ? 1000 : parseInt(country.callingCode[0])
         : 0;
 }
+
+function updateText(textObject, newText, transitionProperties) {
+    if (transitionProperties) {
+        textObject.transition(transitionProperties).text(newText);
+    } else {
+        textObject.text(newText);
+    }
+}

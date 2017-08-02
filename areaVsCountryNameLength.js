@@ -53,7 +53,7 @@ yAxisLabel
     .attr('x', -height / 2)
     .attr('dy', '.75em')
     .attr('transform', 'rotate(-90)')
-    .text('area (square miles)');
+    .text('area (sq mi)');
 
 // Set x-axis
 let xAxis = svg.append('g');
@@ -88,7 +88,7 @@ circles
 // Set tooltip behavior
 circles
     .on('mouseover', function(d) {
-        tooltipDiv.html(`<p>${d.name.common}</p><p>${areaFormat(d.area)} sq mi</p>`);
+        tooltipDiv.html(`<p>${d.name.common}</p><p>Area: ${areaFormat(d.area)} sq mi</p>`);
         var width = parseInt(tooltipDiv.style('width'));
         var height = parseInt(tooltipDiv.style('height'));
         tooltipDiv
@@ -107,8 +107,8 @@ let t = d3.transition().duration(100);
 function updateData() {
     circles.transition(t).attr('cx', d => callingCodeScale(getCallingCode(d)));
     xAxis.transition(t).call(d3.axisBottom(callingCodeScale).ticks(20));
-    title.transition(t).text('Country Area vs Calling Code');
-    xAxisLabel.transition(t).text('calling code');
+    updateText(title, 'Country Area vs Calling Code', t);
+    updateText(xAxisLabel, 'calling code', t);
 }
 
 // Other ideas
