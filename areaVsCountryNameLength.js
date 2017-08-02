@@ -1,7 +1,7 @@
 // Area configuration
 const areaMin = d3.min(countries, d => isAreaDefined(d, d.area, 0));
 const areaMax = d3.max(countries, d => d.area);
-const areaScale = d3.scaleLinear().domain([areaMin, areaMax]).range([height - padding.bottom, padding.top]);
+const areaScale = d3.scaleLinear().domain([areaMin, areaMax]).range([height - 2 * padding.bottom, padding.top]);
 const areaFormat = d3.format(',.5r');
 
 // Country Name Length configuration
@@ -24,29 +24,52 @@ const callingCodeScale = d3
 let svg = d3
     .select('body')
     .append('svg')
-    .classed('areavscountryname', true)
+    .classed('area vs graph', true)
     .attr('width', width + margin.left + margin.right)
     .attr('height', height + margin.top + margin.bottom)
     .append('g')
     .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
 // Set title
-svg
-    .append('text')
+let title = svg.append('text');
+
+title
     .attr('x', (width + margin.left + margin.right) / 2)
     .attr('text-anchor', 'middle')
     .style('font-size', '16px')
     .style('text-decoration', 'underline')
-    .text('Country Area VS Country Name Character Length');
+    .text('Country Area vs Country Name Character Length');
 
 // Set y-axis
-svg
-    .append('g')
-    .attr('transform', `translate(${padding.left}, ${padding.bottom})`)
-    .call(d3.axisLeft(areaScale).ticks(20));
+let yAxis = svg.append('g');
+
+yAxis.attr('transform', `translate(${padding.left}, ${padding.bottom})`).call(d3.axisLeft(areaScale).ticks(20));
+
+let yAxisLabel = svg.append('text');
+
+yAxisLabel
+    .attr('class', 'y label')
+    .attr('text-anchor', 'middle')
+    .attr('x', -height / 2)
+    .attr('dy', '.75em')
+    .attr('transform', 'rotate(-90)')
+    .text('area (square miles)');
 
 // Set x-axis
-svg.append('g').attr('transform', `translate(0, ${height})`).call(d3.axisBottom(countryNameLengthScale).ticks(30));
+let xAxis = svg.append('g');
+
+xAxis
+    .attr('transform', `translate(0, ${height - padding.bottom})`)
+    .call(d3.axisBottom(countryNameLengthScale).ticks(30));
+
+let xAxisLabel = svg.append('text');
+
+xAxisLabel
+    .attr('class', 'x label')
+    .attr('text-anchor', 'middle')
+    .attr('x', width / 2)
+    .attr('y', height - padding.bottom + 40)
+    .text('# of characters in the common country name');
 
 // Define circles
 let circles = svg.selectAll('circle').data(countries).enter().append('circle');
@@ -83,6 +106,9 @@ let t = d3.transition().duration(100);
 
 function updateData() {
     circles.transition(t).attr('cx', d => callingCodeScale(getCallingCode(d)));
+    xAxis.transition(t).call(d3.axisBottom(callingCodeScale).ticks(20));
+    title.transition(t).text('Country Area vs Calling Code');
+    xAxisLabel.transition(t).text('calling code');
 }
 
 // Other ideas
