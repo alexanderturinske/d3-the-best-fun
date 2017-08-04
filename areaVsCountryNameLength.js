@@ -90,14 +90,39 @@ circles
         tooltipDiv.style('opacity', 0).style('left', '-1000px');
     });
 
-setTimeout(updateData, 1000);
-
 let t = d3.transition().duration(100);
 
-function updateData() {
-    circles.transition(t).attr('cx', d => callingCodeScale(getCallingCode(d)));
-    xAxis.transition(t).call(d3.axisBottom(callingCodeScale).ticks(20));
-    updateText(xAxisLabel, 'calling code', t);
+function updateXaxis(e) {
+    let axis, axisScale, label;
+    const eleClasses = [...e.classList];
+    if (eleClasses.indexOf('title__first-select') > -1) {
+        axis = yAxis;
+        axisScale = d3.axisLeft;
+        label = yAxisLabel;
+    } else {
+        axis = xAxis;
+        axisScale = d3.axisBottom;
+        label = xAxisLabel;
+    }
+    switch (e.value) {
+        case '# of Languages':
+            break;
+        case 'Area':
+            break;
+        case 'Calling Code':
+            circles.transition(t).attr('cx', d => callingCodeScale(getCallingCode(d)));
+            axis.transition(t).call(axisScale(callingCodeScale).ticks(20));
+            updateText(label, 'calling code', t);
+            break;
+        case 'Country Name Length':
+            break;
+        case 'Latitude':
+            break;
+        case 'Longitude':
+            break;
+        default:
+            break;
+    }
 }
 
 // Other ideas
