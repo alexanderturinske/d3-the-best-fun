@@ -1,7 +1,7 @@
 // Area configuration
 const areaMin = d3.min(countries, d => isAreaDefined(d, d.area, 0));
 const areaMax = d3.max(countries, d => d.area);
-const areaScale = d3.scaleLinear().domain([areaMin, areaMax]).range([height - 2 * padding.bottom, padding.top]);
+const areaScale = d3.scaleLinear().domain([areaMin, areaMax]).range([height - 2 * padding.bottom, 0]);
 const areaFormat = d3.format(',.5r');
 
 // Country Name Length configuration
@@ -26,19 +26,9 @@ let svg = d3
     .append('svg')
     .classed('area vs graph', true)
     .attr('width', width + margin.left + margin.right)
-    .attr('height', height + margin.top + margin.bottom)
+    .attr('height', height + margin.bottom)
     .append('g')
-    .attr('transform', `translate(${margin.left}, ${margin.top})`);
-
-// Set title
-let title = svg.append('text');
-
-title
-    .attr('x', (width + margin.left + margin.right) / 2)
-    .attr('text-anchor', 'middle')
-    .style('font-size', '16px')
-    .style('text-decoration', 'underline')
-    .text('Country Area vs Country Name Character Length');
+    .attr('transform', `translate(${margin.left}, 0)`);
 
 // Set y-axis
 let yAxis = svg.append('g');
@@ -107,7 +97,6 @@ let t = d3.transition().duration(100);
 function updateData() {
     circles.transition(t).attr('cx', d => callingCodeScale(getCallingCode(d)));
     xAxis.transition(t).call(d3.axisBottom(callingCodeScale).ticks(20));
-    updateText(title, 'Country Area vs Calling Code', t);
     updateText(xAxisLabel, 'calling code', t);
 }
 

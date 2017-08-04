@@ -8,3 +8,17 @@ div.tooltip {
     font-size: 1em;
     background: lightgrey;
 }
+
+.title {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.title__vs {
+    margin: 0 10px;
+}
+
+svg {
+    display: block;
+}
