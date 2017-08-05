@@ -1,5 +1,5 @@
 const scales = {},
-    yMin = height - margin.bottom,
+    yMin = height - padding.bottom,
     yMax = margin.top,
     xMin = padding.left,
     xMax = width - padding.right;
@@ -34,11 +34,6 @@ const callingCodeScale = d3.scaleLinear().domain([callingCodeMin, callingCodeMax
 scales.ycalling = callingCodeScale.copy().range([yMin, yMax]);
 // X-axis
 scales.xcalling = callingCodeScale.copy().range([xMin, xMax]);
-
-// Latitude
-// d.latlng[0]
-// Longitude
-// d.latlng[1]
 
 // Number of Languages configuration
 const languageMin = d3.min(countries, d => Object.keys(d.languages).length);

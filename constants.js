@@ -3,7 +3,7 @@ const height = 600;
 const padding = {
     top: 10,
     right: 0,
-    bottom: 100,
+    bottom: 30,
     left: 80
 };
 const margin = {

@@ -35,7 +35,7 @@ yAxisLabel
 // Set x-axis
 let xAxis = svg.append('g');
 
-xAxis.attr('transform', `translate(0, ${height - margin.bottom})`).call(d3.axisBottom(defaultProps.xaxis).ticks(30));
+xAxis.attr('transform', `translate(0, ${height - padding.bottom})`).call(d3.axisBottom(defaultProps.xaxis).ticks(30));
 
 let xAxisLabel = svg.append('text');
 
@@ -43,7 +43,7 @@ xAxisLabel
     .attr('class', 'x label')
     .attr('text-anchor', 'middle')
     .attr('x', width / 2)
-    .attr('y', height - margin.bottom + 40)
+    .attr('y', height - padding.bottom + 40)
     .text(defaultProps.xtext);
 
 // Define circles
