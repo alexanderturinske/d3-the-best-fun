@@ -1,6 +1,6 @@
 const scales = {},
-    yMin = height - 2 * padding.bottom,
-    yMax = 0,
+    yMin = height - margin.bottom,
+    yMax = margin.top,
     xMin = padding.left,
     xMax = width - padding.right;
 

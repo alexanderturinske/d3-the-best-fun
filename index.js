@@ -11,7 +11,7 @@ let svg = d3
 // Set y-axis
 let yAxis = svg.append('g');
 
-yAxis.attr('transform', `translate(${padding.left}, ${padding.bottom})`).call(d3.axisLeft(scales.yarea).ticks(20));
+yAxis.attr('transform', `translate(${padding.left}, 0)`).call(d3.axisLeft(scales.yarea).ticks(20));
 
 let yAxisLabel = svg.append('text');
 
@@ -26,7 +26,7 @@ yAxisLabel
 // Set x-axis
 let xAxis = svg.append('g');
 
-xAxis.attr('transform', `translate(0, ${height - padding.bottom})`).call(d3.axisBottom(scales.xcalling).ticks(30));
+xAxis.attr('transform', `translate(0, ${height - margin.bottom})`).call(d3.axisBottom(scales.xcalling).ticks(30));
 
 let xAxisLabel = svg.append('text');
 
@@ -34,7 +34,7 @@ xAxisLabel
     .attr('class', 'x label')
     .attr('text-anchor', 'middle')
     .attr('x', width / 2)
-    .attr('y', height - padding.bottom + 40)
+    .attr('y', height - margin.bottom + 40)
     .text('# of characters in the common country name');
 
 // Define circles
@@ -44,10 +44,7 @@ let circles = svg.selectAll('circle').data(countries).enter().append('circle');
 var tooltipDiv = d3.select('body').append('div').attr('class', 'tooltip').style('opacity', 0);
 
 // Set circles
-circles
-    .attr('cy', d => scales.yarea(d.area) + padding.bottom)
-    .attr('cx', d => scales.xname(d.name.common.length))
-    .attr('r', 5);
+circles.attr('cy', d => scales.yarea(d.area)).attr('cx', d => scales.xname(d.name.common.length)).attr('r', 5);
 
 // Set tooltip behavior
 circles
