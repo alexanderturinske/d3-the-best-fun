@@ -2,7 +2,7 @@
 let svg = d3
     .select('body')
     .append('svg')
-    .classed('area vs graph', true)
+    .classed('graph', true)
     .attr('width', width + margin.left + margin.right)
     .attr('height', height + margin.bottom)
     .append('g')
@@ -11,7 +11,7 @@ let svg = d3
 // Set y-axis
 let yAxis = svg.append('g');
 
-yAxis.attr('transform', `translate(${padding.left}, ${padding.bottom})`).call(d3.axisLeft(areaScale).ticks(20));
+yAxis.attr('transform', `translate(${padding.left}, ${padding.bottom})`).call(d3.axisLeft(areaYScale).ticks(20));
 
 let yAxisLabel = svg.append('text');
 
@@ -28,7 +28,7 @@ let xAxis = svg.append('g');
 
 xAxis
     .attr('transform', `translate(0, ${height - padding.bottom})`)
-    .call(d3.axisBottom(countryNameLengthScale).ticks(30));
+    .call(d3.axisBottom(countryNameLengthXScale).ticks(30));
 
 let xAxisLabel = svg.append('text');
 
@@ -47,11 +47,9 @@ var tooltipDiv = d3.select('body').append('div').attr('class', 'tooltip').style(
 
 // Set circles
 circles
-    .attr('cy', d => areaScale(d.area) + padding.bottom)
-    .attr('cx', d => countryNameLengthScale(d.name.common.length))
-    .attr('r', 5)
-    // .attr('fill', d => colorScale(partisanScore(d)))
-    .on('mouseover', d => console.log(`${d.name.common}.length = ${d.name.common.length}`));
+    .attr('cy', d => areaYScale(d.area) + padding.bottom)
+    .attr('cx', d => countryNameLengthXScale(d.name.common.length))
+    .attr('r', 5);
 
 // Set tooltip behavior
 circles
@@ -90,8 +88,8 @@ function updateAxis(e) {
         case 'Area':
             break;
         case 'Calling Code':
-            circles.transition(t).attr(attr, d => callingCodeScale(getCallingCode(d)));
-            axis.transition(t).call(axisScale(callingCodeScale).ticks(20));
+            circles.transition(t).attr(attr, d => callingCodeXScale(getCallingCode(d)));
+            axis.transition(t).call(axisScale(callingCodeXScale).ticks(20));
             updateText(label, 'calling code', t);
             break;
         case 'Country Name Length':
