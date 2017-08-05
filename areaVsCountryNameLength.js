@@ -92,17 +92,19 @@ circles
 
 let t = d3.transition().duration(100);
 
-function updateXaxis(e) {
+function updateAxis(e) {
     let axis, axisScale, label;
     const eleClasses = [...e.classList];
     if (eleClasses.indexOf('title__first-select') > -1) {
         axis = yAxis;
         axisScale = d3.axisLeft;
         label = yAxisLabel;
+        attr = 'cy';
     } else {
         axis = xAxis;
         axisScale = d3.axisBottom;
         label = xAxisLabel;
+        attr = 'cx';
     }
     switch (e.value) {
         case '# of Languages':
@@ -110,7 +112,7 @@ function updateXaxis(e) {
         case 'Area':
             break;
         case 'Calling Code':
-            circles.transition(t).attr('cx', d => callingCodeScale(getCallingCode(d)));
+            circles.transition(t).attr(attr, d => callingCodeScale(getCallingCode(d)));
             axis.transition(t).call(axisScale(callingCodeScale).ticks(20));
             updateText(label, 'calling code', t);
             break;
