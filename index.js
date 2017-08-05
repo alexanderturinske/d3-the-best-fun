@@ -90,17 +90,19 @@ function updateAxis(e) {
         axisType = 'x';
     }
     d3axisScale = scales[axisType + value];
+    axis.transition(t).call(axisScale(d3axisScale).ticks(20));
+    updateText(label, value, t);
     switch (value) {
         case 'language':
             break;
         case 'area':
+            circles.transition(t).attr(attr, d => d3axisScale(d.area));
             break;
         case 'calling':
             circles.transition(t).attr(attr, d => d3axisScale(getCallingCode(d)));
-            axis.transition(t).call(axisScale(d3axisScale).ticks(20));
-            updateText(label, value, t);
             break;
         case 'name':
+            circles.transition(t).attr(attr, d => d3axisScale(d.name.common.length));
             break;
         case 'latitude':
             break;
