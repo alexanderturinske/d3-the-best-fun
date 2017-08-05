@@ -11,7 +11,7 @@ let svg = d3
 // Set y-axis
 let yAxis = svg.append('g');
 
-yAxis.attr('transform', `translate(${padding.left}, ${padding.bottom})`).call(d3.axisLeft(areaYScale).ticks(20));
+yAxis.attr('transform', `translate(${padding.left}, ${padding.bottom})`).call(d3.axisLeft(scales.yarea).ticks(20));
 
 let yAxisLabel = svg.append('text');
 
@@ -26,9 +26,7 @@ yAxisLabel
 // Set x-axis
 let xAxis = svg.append('g');
 
-xAxis
-    .attr('transform', `translate(0, ${height - padding.bottom})`)
-    .call(d3.axisBottom(countryNameLengthXScale).ticks(30));
+xAxis.attr('transform', `translate(0, ${height - padding.bottom})`).call(d3.axisBottom(scales.xcalling).ticks(30));
 
 let xAxisLabel = svg.append('text');
 
@@ -47,8 +45,8 @@ var tooltipDiv = d3.select('body').append('div').attr('class', 'tooltip').style(
 
 // Set circles
 circles
-    .attr('cy', d => areaYScale(d.area) + padding.bottom)
-    .attr('cx', d => countryNameLengthXScale(d.name.common.length))
+    .attr('cy', d => scales.yarea(d.area) + padding.bottom)
+    .attr('cx', d => scales.xname(d.name.common.length))
     .attr('r', 5);
 
 // Set tooltip behavior
@@ -69,34 +67,38 @@ circles
 let t = d3.transition().duration(100);
 
 function updateAxis(e) {
-    let axis, axisScale, label;
-    const eleClasses = [...e.classList];
+    let axis, axisScale, d3axisScale, label;
+    const eleClasses = [...e.classList],
+        value = e.value;
     if (eleClasses.indexOf('title__first-select') > -1) {
         axis = yAxis;
         axisScale = d3.axisLeft;
         label = yAxisLabel;
         attr = 'cy';
+        axisType = 'y';
     } else {
         axis = xAxis;
         axisScale = d3.axisBottom;
         label = xAxisLabel;
         attr = 'cx';
+        axisType = 'x';
     }
-    switch (e.value) {
-        case '# of Languages':
+    d3axisScale = scales[axisType + value];
+    switch (value) {
+        case 'language':
             break;
-        case 'Area':
+        case 'area':
             break;
-        case 'Calling Code':
-            circles.transition(t).attr(attr, d => callingCodeXScale(getCallingCode(d)));
-            axis.transition(t).call(axisScale(callingCodeXScale).ticks(20));
+        case 'calling':
+            circles.transition(t).attr(attr, d => d3axisScale(getCallingCode(d)));
+            axis.transition(t).call(axisScale(d3axisScale).ticks(20));
             updateText(label, 'calling code', t);
             break;
-        case 'Country Name Length':
+        case 'name':
             break;
-        case 'Latitude':
+        case 'latitude':
             break;
-        case 'Longitude':
+        case 'longitude':
             break;
         default:
             break;
