@@ -1,3 +1,12 @@
+const defaultProps = {
+    yaxis: scales.yarea,
+    ytext: 'area (sq mi)',
+    cy: d => scales.yarea(d.area),
+    xaxis: scales.xcalling,
+    xtext: 'calling code',
+    cx: d => scales.xcalling(getCallingCode(d))
+};
+
 // Define svg
 let svg = d3
     .select('body')
@@ -11,7 +20,7 @@ let svg = d3
 // Set y-axis
 let yAxis = svg.append('g');
 
-yAxis.attr('transform', `translate(${padding.left}, 0)`).call(d3.axisLeft(scales.yarea).ticks(20));
+yAxis.attr('transform', `translate(${padding.left}, 0)`).call(d3.axisLeft(defaultProps.yaxis).ticks(20));
 
 let yAxisLabel = svg.append('text');
 
@@ -21,12 +30,12 @@ yAxisLabel
     .attr('x', -height / 2)
     .attr('dy', '.75em')
     .attr('transform', 'rotate(-90)')
-    .text('area (sq mi)');
+    .text(defaultProps.ytext);
 
 // Set x-axis
 let xAxis = svg.append('g');
 
-xAxis.attr('transform', `translate(0, ${height - margin.bottom})`).call(d3.axisBottom(scales.xcalling).ticks(30));
+xAxis.attr('transform', `translate(0, ${height - margin.bottom})`).call(d3.axisBottom(defaultProps.xaxis).ticks(30));
 
 let xAxisLabel = svg.append('text');
 
@@ -35,7 +44,7 @@ xAxisLabel
     .attr('text-anchor', 'middle')
     .attr('x', width / 2)
     .attr('y', height - margin.bottom + 40)
-    .text('# of characters in the common country name');
+    .text(defaultProps.xtext);
 
 // Define circles
 let circles = svg.selectAll('circle').data(countries).enter().append('circle');
@@ -44,7 +53,7 @@ let circles = svg.selectAll('circle').data(countries).enter().append('circle');
 var tooltipDiv = d3.select('body').append('div').attr('class', 'tooltip').style('opacity', 0);
 
 // Set circles
-circles.attr('cy', d => scales.yarea(d.area)).attr('cx', d => scales.xname(d.name.common.length)).attr('r', 5);
+circles.attr('cy', d => defaultProps.cy(d)).attr('cx', d => defaultProps.cx(d)).attr('r', 5);
 
 // Set tooltip behavior
 circles
