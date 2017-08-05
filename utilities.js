@@ -12,8 +12,8 @@ function getCallingCode(country) {
 
 function updateText(textObject, newText, transitionProperties) {
     if (transitionProperties) {
-        textObject.transition(transitionProperties).text(newText);
+        textObject.transition(transitionProperties).text(strings.axisTitles[newText]);
     } else {
-        textObject.text(newText);
+        textObject.text(strings.axisTitles[newText]);
     }
 }

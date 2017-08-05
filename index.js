@@ -1,9 +1,9 @@
 const defaultProps = {
     yaxis: scales.yarea,
-    ytext: 'area (sq mi)',
+    ytext: strings.axisTitles.area,
     cy: d => scales.yarea(d.area),
     xaxis: scales.xcalling,
-    xtext: 'calling code',
+    xtext: strings.axisTitles.calling,
     cx: d => scales.xcalling(getCallingCode(d))
 };
 
@@ -98,7 +98,7 @@ function updateAxis(e) {
         case 'calling':
             circles.transition(t).attr(attr, d => d3axisScale(getCallingCode(d)));
             axis.transition(t).call(axisScale(d3axisScale).ticks(20));
-            updateText(label, 'calling code', t);
+            updateText(label, value, t);
             break;
         case 'name':
             break;
