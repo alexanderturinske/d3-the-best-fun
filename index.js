@@ -94,6 +94,7 @@ function updateAxis(e) {
     updateText(label, value, t);
     switch (value) {
         case 'language':
+            circles.transition(t).attr(attr, d => d3axisScale(Object.keys(d.languages).length));
             break;
         case 'area':
             circles.transition(t).attr(attr, d => d3axisScale(d.area));
@@ -105,10 +106,13 @@ function updateAxis(e) {
             circles.transition(t).attr(attr, d => d3axisScale(d.name.common.length));
             break;
         case 'latitude':
+            circles.transition(t).attr(attr, d => d3axisScale(d.latlng[0]));
             break;
         case 'longitude':
+            circles.transition(t).attr(attr, d => d3axisScale(d.latlng[1]));
             break;
         default:
+            circles.transition(t).attr(attr, d => 0);
             break;
     }
 }
