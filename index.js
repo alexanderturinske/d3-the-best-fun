@@ -116,24 +116,3 @@ function updateAxis(e) {
             break;
     }
 }
-
-// Other ideas
-// Transition to:
-// Area vs Latitude
-// Area vs Longitude
-// Area vs Calling Code
-// Area vs Number of languages spoken
-
-// Other graph ideas
-// Number of languages by Country Name Length
-// Latitude vs Longitude
-
-// Information
-// Number of languages
-// Object.keys(d).length
-// Latitude
-// d.latlng[0]
-// Longitude
-// d.latlng[1]
-// Calling Code
-// parseInt(d.callingCode[0])

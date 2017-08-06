@@ -1,4 +1,4 @@
-// Check whether or not the area is defined on the country object
+// Checks whether or not the area is defined on the country object
 function isAreaDefined(country, isDefined, isNotDefined) {
     return country.area > -1 ? isDefined : isNotDefined;
 }
@@ -10,6 +10,7 @@ function getCallingCode(country) {
         : 0;
 }
 
+// Updates an svg text object
 function updateText(textObject, newText, transitionProperties) {
     if (transitionProperties) {
         textObject.transition(transitionProperties).text(strings.axisTitles[newText]);
