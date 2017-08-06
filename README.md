@@ -24,8 +24,6 @@ Currently there are no tests
 
 * **Alexander Turinske** - *Initial work* - [alexanderturinske](https://github.com/alexanderturinske)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
 ## License
 
 This project is licensed under the MIT License
